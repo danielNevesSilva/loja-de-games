@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Funcionários</title>
+</head>
+<body>
+<h2>Lista de Funcionários</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Grupo</th>
+        <th>Status</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="funcionario : ${funcionarios}">
+        <td th:text="${funcionario.username}"></td>
+        <td th:text="${funcionario.email}"></td>
+        <td th:text="${funcionario.funcao}"></td>
+        <td th:text="${funcionario.status}"></td>
+        <td>
+            <a th:href="@{/funcionario/alterar/{id}(id=${funcionario.id})}">Alterar</a>
+        </td>
+        <td>
+            <button th:attr="onclick='alterarStatus(\'' + ${funcionario.id} + '\', \'' + ${funcionario.status} + '\')'">Alterar Status</button>        </td>
+    </tr>
+    </tbody>
+</table>
+<script th:src="@{/js/cadastro.js}" defer="defer"></script>
+</body>
+</html>
