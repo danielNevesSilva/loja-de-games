@@ -31,8 +31,7 @@ public class ProdutoController {
     private ProductService productService;
 
     // setting a variable for the directory of the product images
-    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/images";
-
+    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/images";
 
     //admin home page
     @GetMapping("/admin")
