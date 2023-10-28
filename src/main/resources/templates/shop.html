@@ -118,10 +118,10 @@
     <div class="row">
 
         <div class="col-lg-3">
-            <h1 class="h2 pb-4">Categories</h1>
+            <h1 class="h2 pb-4">Categoria</h1>
             <ul class="list-group shop-top-menu pb-3 pt-1">
                 <a class="h4 text-dark text-decoration-none mr-3" th:href="@{/shop}">
-                    <li class="list-group-item ">All Products</li>
+                    <li class="list-group-item ">Todos os produtos</li>
                 </a>
                 <a class="h4 text-dark text-decoration-none mr-3" href="" th:each="category : ${categories}"
                    th:href="@{/shop/category/{id}(id=${category.id})}">
@@ -148,7 +148,7 @@
                         <div class="card-body">
                             <p class="h1 py-2" th:text="${product.name}"></p>
                             <p class="h3 py-2" >
-                                € <span th:text="${#numbers.formatDecimal(product.price,  1, 'COMMA', 2, 'POINT')}"></span>
+                                $ <span th:text="${#numbers.formatDecimal(product.price,  1, 'COMMA', 2, 'POINT')}"></span>
                             </p>
                         </div>
                     </div>

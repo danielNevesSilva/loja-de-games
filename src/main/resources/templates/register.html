@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en-ie" xmlns:th="http://www.thymeleaf.org"
+<html lang="en"xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-    <title>SimpleFocals - </title>
+    <title>SimpleFocals - Everyday Eyewear</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,11 +47,12 @@
 </nav>
 <!-- Close Top Nav -->
 
+
 <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/}" href="#">
+        <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
             SimpleFocals
         </a>
 
@@ -103,65 +104,70 @@
                 </a>
             </div>
         </div>
+
     </div>
 </nav>
 <!-- Close Header -->
 
+<!-- Start Content Page -->
+<div class="container-fluid bg-light py-5">
+    <div class="col-md-6 m-auto text-center">
+        <h1 class="h1">Welcome to SimpleFocals</h1>
+    </div>
+</div>
 
-<!-- Open Content -->
-<section class="bg-light">
+
+<!-- Start Contact -->
+<section >
     <div class="container pb-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-lg-3 mt-5">
+        <div class="row">
+            <div class="col-lg-6 m-auto mt-5">
                 <div class="card mb-3 shadow bg-white rounded">
-                    <img class="card-img" height="300px" width="80px" src=""
-                         th:src="@{${'/Images/' + product.imageName}}" id="product-detail">
-                </div>
-            </div>
-            <!-- col end -->
-            <div class="col-lg-4 mt-5">
-                <div class="card">
-                    <div class="card-body shadow bg-white rounded">
-
-                        <h1 class="h2 text-center" th:text="${product.name}"></h1>
+                    <div class="card-body ">
+                        <p class="h2 text-center">Register</p>
                         <br>
-                        <p class="h3 py-2"><strong>Categoria:</strong></p>
-                        <p class="h4 py-2" th:text="${product.category.name}"></p>
-
-                        <p class="h3 py-2"><strong>Preco:</strong></p>
-                        <p class="h4 py-2">$
-                            <span th:text="${#numbers.formatDecimal(product.price,  1, 'COMMA', 2, 'POINT')}">
-                        </span></p>
-                        <p class="h3 py-2"><strong>Descrição:</strong></p>
-                        <p class="h4 py-2" th:text="${product.description}"></p>
-
-                        <form th:action="@{/addToCart/{id}(id = ${product.id})}" method="post">
-                            <div class="input-group row">
-                                <div class="col-xs-2">
-                                    <label for="quantity" class="h3 py-2"><strong>Quantidade:</strong></label>
-                                    <input type="number" min="1" max="10" class="form-control "
-                                           required th:object="${quantityObj}" th:field="*{value}"
-                                           name="quantity" id="quantity">
-                                </div>
+                        <p>Please fill out this to register</p>
+                        <form th:action="@{/register}" th:object="${user}" method="post">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" name="firstName" id="firstName" required placeholder="first name" class="form-control form-control-lg">
                             </div>
                             <br>
-                            <div class="input-group d-flex justify-content-center border-0 px-0 pb-0">
-                                <input type="submit" value="Add To Cart" id="buttonAdd2Cart" class="btn btn-success">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" name="lastName" id="lastName" required placeholder="last name" class="form-control form-control-lg">
                             </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control form-control-lg" required minlength="6" placeholder="email" name="email" id="email"
+                                       aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">You email will be used for your login.</small>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control form-control-lg" required placeholder="password" name="password"
+                                       id="password">
+                            </div>
+
+                            <!--                            <div th:if="${emailError} == 'error'" class="alert alert-error text-danger">-->
+                            <!--                                That email address has already been used. Please correct.-->
+                            <!--                            </div>-->
+                            <br>
+                            <input type="submit" value="Click here to Register" class="btn btn-success btn-block">
+                            <br>
+                            <p style="margin-top: 10px">Already have an account <a class="linkControl text-decoration-none" href="login.html" th:href="@{/login}">Login here</a></p>
                         </form>
                     </div>
                 </div>
             </div>
+            <!-- col end -->
+
         </div>
     </div>
-
-    <br>
-    <br>
-    <br>
 </section>
-<!-- Close Content -->
-
-
+<!-- End Contact -->
 
 
 <!-- Start Footer -->
@@ -192,6 +198,7 @@
                 <ul class="list-unstyled text-light footer-link-list">
                     <li><a class="text-decoration-none" href="#">Popular</a></li>
                     <li><a class="text-decoration-none" href="#">Best Sellers</a></li>
+
                 </ul>
             </div>
 
@@ -249,10 +256,8 @@
 <!-- End Footer -->
 
 <!-- Start Script -->
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <!-- End Script -->
-
-
 </body>
 
 </html>

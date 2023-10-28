@@ -1,9 +1,13 @@
 package com.PTIV.loja.de.games.model;
 
+import com.PTIV.loja.de.games.dto.UserDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,6 +27,7 @@ public class User {
     )
     private List<Role> roles;
 
+    private UserRole role;
     @Column(name = "email", nullable = false, unique = true, length = 255)
     @NotEmpty(message = "email may not be empty")
     @Email(message = "{errors.invalid_email}")
@@ -32,12 +37,25 @@ public class User {
     private String firstName;
     private String lastName;
 
-
     @NotEmpty(message = "password may not be empty")
     private String password;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CustomerProfile customerProfile;
+
+    public User(String email, String password, UserRole role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(UserDto user) {
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
 
     public User() {
     }

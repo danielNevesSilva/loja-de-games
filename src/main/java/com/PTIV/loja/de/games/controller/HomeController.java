@@ -5,6 +5,8 @@ import com.PTIV.loja.de.games.model.Quantity;
 import com.PTIV.loja.de.games.model.Role;
 import com.PTIV.loja.de.games.model.User;
 import com.PTIV.loja.de.games.service.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,15 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+//    @Autowired
+//    private QuantityService quantityService;
+
     @Autowired
     private ProductService productService;
 
     @Autowired
     private CategoryService categoryService;
+
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
@@ -128,3 +134,4 @@ public class HomeController {
         return "viewProduct";
     }
 }
+

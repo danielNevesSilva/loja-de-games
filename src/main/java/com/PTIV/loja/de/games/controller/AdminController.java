@@ -7,9 +7,7 @@ import com.PTIV.loja.de.games.model.Product;
 import com.PTIV.loja.de.games.service.CategoryService;
 import com.PTIV.loja.de.games.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,11 +16,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+
 @Controller
-public class ProdutoController {
+public class AdminController {
 
     @Autowired
     private CategoryService categoryService;
@@ -31,7 +29,8 @@ public class ProdutoController {
     private ProductService productService;
 
     // setting a variable for the directory of the product images
-    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/images";
+    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/Images";
+
 
     //admin home page
     @GetMapping("/admin")
@@ -95,47 +94,40 @@ public class ProdutoController {
                                   @RequestParam("productImage") MultipartFile multipartFile,
                                   @RequestParam("imgName") String imageName) throws IOException {
 
-        // Use o productDTO para transferir os atributos para o objeto de produto
+//       Use the productDTO obj to transfer the attributes to product object
         Product product = new Product();
         product.setId(productDTO.getId());
         product.setName(productDTO.getName());
 
-        // Precisamos passar a categoria para o produto
-        // O ProductDTO só tem o ID da categoria
+//        we need to pass the category to the product
+//        the ProductDTO only has the category id
         Integer categoryId = productDTO.getCategoryId();
+        String categoryName = productDTO.getName();
 
-        // Use o método getOrElseThrow para obter a categoria
-        Category category = categoryService.getCategoryById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Categoria não encontrada"));
-
-        product.setCategory(category);
+        // set the attributes for the product
+        product.setCategory(categoryService.getCategoryById(productDTO.getCategoryId()).get());
         product.setPrice(productDTO.getPrice());
         product.setDescription(productDTO.getDescription());
 
-        // Nome da imagem
+        //Name of the image
         String imageIdentifier;
-
-        // Se o objeto multipartFile não estiver vazio, significa que uma nova imagem foi enviada
-        if (!multipartFile.isEmpty()) {
+        //if the multipartFile object is not empty in passing from the front-end
+        if(!multipartFile.isEmpty()){
             imageIdentifier = multipartFile.getOriginalFilename();
-
-            // Caminho onde a imagem será salva
+            // this creates the path where the image is to be uploaded to the system
             Path fileNameAndPath = Paths.get(uploadDir, imageIdentifier);
-
-            // Salve o arquivo no caminho
+            //this writes the actual file and uploads to the system
             Files.write(fileNameAndPath, multipartFile.getBytes());
-        } else {
-            // Se o objeto multipartFile estiver vazio, use o nome da imagem fornecido
+        }else {
+            //the file is empty
             imageIdentifier = imageName;
         }
-
-        // Defina os últimos atributos do produto
+        //set the last attributes of the product
         product.setImageName(imageIdentifier);
-
-        // Salve o objeto no banco de dados
+        //save the object to db
         productService.addProduct(product);
 
-        // Redirecione para a página de produtos
+        //redirect to products page
         return "redirect:/admin/products";
     }
 
@@ -145,6 +137,6 @@ public class ProdutoController {
         productService.deleteProductById(id);
         return "redirect:/admin/products";
     }
-}
 
+}
 
