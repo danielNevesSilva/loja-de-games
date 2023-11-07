@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,10 +54,13 @@ public class User {
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_COSTUMER")); // Todos os usuários terão a ROLE_USER
+        if (this.isAdmin()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        return authorities;
     }
-
     public User() {
     }
 
@@ -67,6 +71,10 @@ public class User {
         this.lastName = user.getLastName();
         this.password = user.getPassword();
         this.customerProfile = user.customerProfile;
+    }
+
+    public boolean isAdmin(){
+        return this.role == UserRole.ADMIN;
     }
 
     public Integer getId() {

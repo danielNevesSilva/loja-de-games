@@ -11,7 +11,7 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     public Role getCustomerRole() {
-        return roleRepository.findById(2).get();
+        return roleRepository.findById(1).get();
     }
 }
 

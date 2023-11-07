@@ -41,42 +41,30 @@ public class SecurityConfiguration{
                         .requestMatchers("/resources/**", "/static/**", "/images/**", "/Images/**", "/prescription/**", "/css/**", "/js/**")
                         .permitAll()
                         .requestMatchers( "/").permitAll()
-                        .requestMatchers( "/console").permitAll()
                         .requestMatchers( "/shop/**").permitAll()
                         .requestMatchers( "/register").permitAll()
                         .requestMatchers("/profile/**").hasRole("CUSTOMER")
+                        .requestMatchers("/create-payment-intent").hasRole("CUSTOMER")
                         .requestMatchers("/payment").hasRole("CUSTOMER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/login")
+                        .defaultSuccessUrl("/")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/home", true)
-                        .failureUrl("/login?error")
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login"));
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .permitAll());
 
         return http.build();
     }
 
     //configuration for password encoder
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
-    }
-
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().requestMatchers("/resources/**"
-                , "static/**"
-                , "/images/**"
-                , "/Images/**"
-                , "/prescription/**"
-                , "/css/**"
-                , "/js/**");
     }
 }

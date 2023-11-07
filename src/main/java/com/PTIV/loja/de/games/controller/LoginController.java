@@ -4,7 +4,10 @@ package com.PTIV.loja.de.games.controller;
 import com.PTIV.loja.de.games.dto.AuthenticationDTO;
 import com.PTIV.loja.de.games.dto.RegisterDTO;
 import com.PTIV.loja.de.games.dto.UserDto;
+import com.PTIV.loja.de.games.exceptions.EmailCadastradoException;
+import com.PTIV.loja.de.games.model.Role;
 import com.PTIV.loja.de.games.model.User;
+import com.PTIV.loja.de.games.repository.RoleRepository;
 import com.PTIV.loja.de.games.repository.UserRepository;
 import com.PTIV.loja.de.games.service.RoleService;
 import com.PTIV.loja.de.games.service.UserService;
@@ -19,26 +22,30 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //login page
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute @Valid Model model) {
-
-            return "index";
     }
 
     //register page
@@ -55,23 +62,35 @@ public class LoginController {
 
     // post details for registering a new customer
     @PostMapping("/register")
-    public String registration(@Valid @ModelAttribute("user") UserDto user,
-                               BindingResult result,
-                               Model model) {
-        User existing = userService.getUserByUsername(user.getEmail());
-        if (existing != null) {
-            result.rejectValue("email", null, "There is already an account registered with that email");
+    public String registerUser(@ModelAttribute("user") User user, BindingResult result) {
+
+        if (isEmailAlreadyRegistered(user.getEmail())) {
+            result.rejectValue("email", null, "Já tem uma conta registrada com esse email");
+        }
+        String rawData = user.getPassword();
+        user.setPassword(bCryptPasswordEncoder.encode(rawData));
+
+        if (user.getRoles() == null) {
+            user.setRoles(new ArrayList<>()); // Inicialize a lista de papéis
         }
 
-        if (result.hasErrors()) {
-            model.addAttribute("user", user);
-            return "register";
+
+        if (userRepository.count() == 2) {
+            Role admin = roleRepository.findByName("ADMIN");
+            if (admin != null) {
+                user.getRoles().add(admin);
+            }
+        } else {
+            Role customer = roleRepository.findByName("CUSTOMER");
+            if (customer != null) {
+                user.getRoles().add(customer);
+            }
         }
-
-        // Faça a conversão de UserDto para User
-        User userEntity = new User(user);
-
-        userService.saveUser(userEntity);
-        return "redirect:/register?success";
+        userRepository.save(user);
+        return "redirect:/login";
     }
+    private boolean isEmailAlreadyRegistered (String email){
+        return userRepository.getUserByUsername(email) != null;
+    }
+
 }

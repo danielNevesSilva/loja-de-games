@@ -1,9 +1,12 @@
 package com.PTIV.loja.de.games.model;
 
 
+import com.PTIV.loja.de.games.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,11 +14,14 @@ import java.util.List;
 
 public class CustomerUserDetails extends User implements UserDetails {
 
+    @Autowired
+    private UserRepository userRepository;
     private User user;
 
     public CustomerUserDetails(User user) {
         this.user = user;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,7 +36,6 @@ public class CustomerUserDetails extends User implements UserDetails {
         // then return grantedAuthority instances
         return grantedAuthorityList;
     }
-
     @Override
     public String getUsername() {
         return user.getEmail();
