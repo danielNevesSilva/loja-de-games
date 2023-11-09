@@ -30,16 +30,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("O email não existe");
         }
-        // Verifique a função do usuário (sua lógica pode variar)
+
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (user.isAdmin()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+       /* if (user.isAdmin()) {
             System.out.println("è um admin da porra toda");
         }else{
             authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
             System.out.println("è um zé ruela");
-        }
+        }*/
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

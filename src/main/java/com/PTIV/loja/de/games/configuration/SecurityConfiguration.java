@@ -34,34 +34,12 @@ public class SecurityConfiguration{
     }
     //authentication
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .userDetailsService(userDetailsService)
-                .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/resources/**", "/static/**", "/images/**", "/Images/**", "/prescription/**", "/css/**", "/js/**")
-                        .permitAll()
-                        .requestMatchers( "/").permitAll()
-                        .requestMatchers( "/shop/**").permitAll()
-                        .requestMatchers( "/register").permitAll()
-                        .requestMatchers("/profile/**").hasRole("CUSTOMER")
-                        .requestMatchers("/create-payment-intent").hasRole("CUSTOMER")
-                        .requestMatchers("/payment").hasRole("CUSTOMER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                )
-                .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .permitAll());
-
-        return http.build();
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
     }
-
     //configuration for password encoder
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
