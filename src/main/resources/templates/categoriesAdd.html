@@ -51,6 +51,7 @@
 
         <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/admin}" href="#">
             PTIV
+
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -95,12 +96,14 @@
             <div class="col-lg-6 m-auto mt-5">
                 <div class="card mb-3 shadow bg-white rounded">
                     <div class="card-body ">
-                        <h1 class="h2 text-center">Add a categoria</h1>
+
+                        <h1 class="h2 text-center">Adicionar Categoria</h1>
+
                         <br>
                         <form class="col-md-8 mb-3" th:action="@{/admin/categories/add}" method="post" th:object="${category}">
                             <input type="hidden" name="id" th:field="*{id}">
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Nome</label>
                                 <input type="text" class="form-control" required th:field="*{name}" name="name" id="name"
                                        placeholder="Enter name">
                                 <br>
