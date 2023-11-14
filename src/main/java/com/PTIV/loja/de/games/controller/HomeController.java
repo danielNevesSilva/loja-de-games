@@ -133,5 +133,15 @@ public class HomeController {
         model.addAttribute("product", productService.getProductById(id).get());
         return "viewProduct";
     }
+
+    @GetMapping("/shop/viewproductAdmin/{id}")
+    public String viewProductAdmin(@PathVariable int id, Model model){
+        //-----Code fragment to get the cart number---------
+        //-----------------------------------------------
+
+        model.addAttribute("quantityObj", new Quantity());
+        model.addAttribute("product", productService.getProductById(id).get());
+        return "viewProductAdmin";
+    }
 }
 

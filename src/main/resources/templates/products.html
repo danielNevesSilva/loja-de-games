@@ -121,6 +121,7 @@
                                 <td th:text="${product.category.name}"></td>
                                 <td><img src="" height="100px" width="100px"
                                          th:src="@{${'/images/' + product.imageName}}"></td>
+                                <td><a href="" th:href="@{/shop/viewproductAdmin/{id}(id=${product.id})}" class="btn btn-outline-secondary">Detalhes </a></td>
                                 <td><a href="" th:href="@{/admin/product/delete/{id}(id=${product.id})}"
                                        class="btn btn-outline-secondary">Delete</a></td>
                             </tr>
