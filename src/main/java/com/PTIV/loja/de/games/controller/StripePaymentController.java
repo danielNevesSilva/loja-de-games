@@ -51,7 +51,7 @@ public class StripePaymentController {
         //set the PaymentIntent parameters with builder object,
         // the currency euro and the total amount tendered
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("eur")
+                .setCurrency("BR")
                 .setAmount(totalCost*100L)
                 .build();
         // Create a PaymentIntent with the order amount and currency
