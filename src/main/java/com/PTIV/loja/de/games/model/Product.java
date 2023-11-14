@@ -26,6 +26,8 @@ public class Product {
     private String description;
     @Column(name = "image_Name")
     private String imageName;
+    @Column(name = "rating", nullable = false)
+    private int rating;
 
     public Product() {
     }
@@ -34,13 +36,14 @@ public class Product {
         this.id = id;
     }
 
-    public Product(Integer id, String name, Category category, float price, String description, String imageName) {
+    public Product(Integer id, String name, Category category, float price, String description, String imageName, int rating) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.description = description;
         this.imageName = imageName;
+        this.rating = rating;
     }
 
     public Integer getId() {
@@ -91,6 +94,14 @@ public class Product {
         this.imageName = imageName;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -100,6 +111,7 @@ public class Product {
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", imageName='" + imageName + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }

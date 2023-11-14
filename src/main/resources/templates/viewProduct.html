@@ -134,6 +134,9 @@
                         </span></p>
                         <p class="h3 py-2"><strong>Descrição:</strong></p>
                         <p class="h4 py-2" th:text="${product.description}"></p>
+                        <p class="h3 py-2"><strong>avaliação:</strong></p>
+                        <p class="h4 py-2" th:text="${product.rating}"></p>
+
 
                         <form th:action="@{/addToCart/{id}(id = ${product.id})}" method="post">
                             <div class="input-group row">

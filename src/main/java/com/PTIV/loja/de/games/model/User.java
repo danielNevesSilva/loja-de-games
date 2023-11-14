@@ -28,6 +28,7 @@ public class User {
     )
     private List<Role> roles;
 
+    @Enumerated(EnumType.STRING)
     private UserRole role;
     @Column(name = "email", nullable = false, unique = true, length = 255)
     @NotEmpty(message = "email may not be empty")
@@ -55,9 +56,12 @@ public class User {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_COSTUMER")); // Todos os usuários terão a ROLE_USER
         if (this.isAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            System.out.println("É um admin da porra toda");
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+            System.out.println("É um zé ruela");
         }
         return authorities;
     }
@@ -73,8 +77,8 @@ public class User {
         this.customerProfile = user.customerProfile;
     }
 
-    public boolean isAdmin(){
-        return this.role == UserRole.ADMIN;
+    public boolean isAdmin() {
+        return UserRole.ADMIN.equals(this.role);
     }
 
     public Integer getId() {

@@ -109,6 +109,7 @@ public class AdminController {
         product.setCategory(categoryService.getCategoryById(productDTO.getCategoryId()).get());
         product.setPrice(productDTO.getPrice());
         product.setDescription(productDTO.getDescription());
+        product.setRating(productDTO.getRating());
 
         //Name of the image
         String imageIdentifier;

@@ -1,6 +1,7 @@
 package com.PTIV.loja.de.games.service;
 
 import com.PTIV.loja.de.games.model.CustomerUserDetails;
+import com.PTIV.loja.de.games.model.Role;
 import com.PTIV.loja.de.games.model.User;
 import com.PTIV.loja.de.games.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 

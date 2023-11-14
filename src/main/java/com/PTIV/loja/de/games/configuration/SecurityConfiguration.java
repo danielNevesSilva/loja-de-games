@@ -46,7 +46,7 @@ public class SecurityConfiguration{
                         .requestMatchers("/profile/**").hasRole("CUSTOMER")
                         .requestMatchers("/create-payment-intent").hasRole("CUSTOMER")
                         .requestMatchers("/payment").hasRole("CUSTOMER")
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/admin/").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
