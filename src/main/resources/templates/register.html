@@ -142,7 +142,18 @@
                                 <label for="email">Email address</label>
                                 <input type="email" class="form-control form-control-lg" required minlength="6" placeholder="email" name="email" id="email"
                                        aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">You email will be used for your login.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="cpf">CPF</label>
+                                <input type="text" class="form-control form-control-lg" required minlength="6" placeholder="cpf" name="cpf" id="cpf" oninput="formatarCPF(this)" onblur="validarCPF(this.value)"
+                                       >
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gênero:</label>
+                                <select id="gender" name="gender">
+                                    <option value="M">M</option>
+                                    <option value="F">F</option>
+                                </select>
                             </div>
                             <br>
                             <div class="form-group">
@@ -150,10 +161,12 @@
                                 <input type="password" class="form-control form-control-lg" required placeholder="password" name="password"
                                        id="password">
                             </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirme sua senha</label>
+                                <input type="password" class="form-control form-control-lg" required onchange="validarSenhas()" placeholder="password" name="password"
+                                       id="confirmPassword">
+                            </div>
 
-                            <!--                            <div th:if="${emailError} == 'error'" class="alert alert-error text-danger">-->
-                            <!--                                That email address has already been used. Please correct.-->
-                            <!--                            </div>-->
                             <br>
                             <input type="submit" value="Click here to Register" class="btn btn-success btn-block">
                             <br>
@@ -257,6 +270,8 @@
 
 <!-- Start Script -->
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/confirmasenha.js"></script>
+
 <!-- End Script -->
 </body>
 

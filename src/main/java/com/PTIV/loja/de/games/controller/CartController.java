@@ -106,7 +106,15 @@ public class CartController {
         //Add to the view
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("cartCount", totalQuantity);
-        model.addAttribute("total", decimalFormat.format(shoppingCartService.totalCost(cartItemList)));
+
+        double totalCostWithoutShipping = shoppingCartService.totalCost(cartItemList);
+
+        // Adiciona o custo fixo de frete
+        double shippingCost = 10.00;
+        double totalCostWithShipping = totalCostWithoutShipping + shippingCost;
+
+
+        model.addAttribute("total", decimalFormat.format(totalCostWithShipping));
 
         return "cart";
     }

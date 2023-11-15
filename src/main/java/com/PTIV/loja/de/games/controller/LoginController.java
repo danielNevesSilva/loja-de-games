@@ -74,7 +74,6 @@ public class LoginController {
             user.setRoles(new ArrayList<>()); // Inicialize a lista de papéis
         }
 
-
         if (userRepository.count() == 0) {
             Role admin = roleRepository.findByName("ADMIN");
             if (admin != null) {

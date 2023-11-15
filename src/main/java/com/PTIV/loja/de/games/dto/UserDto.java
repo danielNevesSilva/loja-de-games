@@ -16,10 +16,17 @@ public class  UserDto{
     private String firstName;
     @NotEmpty
     private String lastName;
-    @NotEmpty(message = "Email should not be empty")
+    @NotEmpty(message = "O e-mail não deve estar vazio")
     @Email
     private String email;
-    @NotEmpty(message = "Password should not be empty")
+
+    @NotEmpty(message = "O CPF não deve estar vazio")
+    private String cpf;
+
+    @NotEmpty(message = "O genero não deve estar vazio")
+    private String gender;
+
+    @NotEmpty(message = "O Senha não deve estar vazio")
     private String password;
 
     public Long getId() {
