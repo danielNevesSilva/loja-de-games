@@ -21,38 +21,12 @@
 </head>
 
 <body>
-<!-- Start Top Nav -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
-    <div class="container text-light">
-        <div class="w-100 d-flex justify-content-between">
-            <div>
-                <i class="fa fa-envelope mx-2"></i>
-                <a class="navbar-sm-brand text-light text-decoration-none"
-                   href="mailto:christobelchan1@gmail.com">x20143087@student.ncirl.ie</a>
-                <i class="fa fa-phone mx-2"></i>
-                <a class="navbar-sm-brand text-light text-decoration-none" href="tel:083-000-9999">083-000-9999</a>
-            </div>
-            <div>
-                <a class="text-light" href="https://facebook.com" target="_blank" rel="sponsored"><i
-                        class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i
-                        class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://twitter.com/" target="_blank"><i
-                        class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i
-                        class="fab fa-linkedin fa-sm fa-fw"></i></a>
-            </div>
-        </div>
-    </div>
-</nav>
-<!-- Close Top Nav -->
-
 <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-light shadow">
+<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: black;">
     <div class="container d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/admin}" href="#">
-            PTIV
+        <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/}" href="#">
+            <img class="logo" src="/images/Logo_1.jpg" alt="logo jogo">
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -64,17 +38,16 @@
         <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
              id="templatemo_main_nav">
             <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-center mx-lg-auto">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/admin}" href="#">CMS home</a>
+                        <a class="nav-link" th:href="@{/admin}" href="#" style="color: white;">Admin home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/logout}" href="#">logout</a>
+                        <a class="nav-link" th:href="@{/logout}" href="#" style="color: white;">logout</a>
                     </li>
                 </ul>
             </div>
         </div>
-
     </div>
 </nav>
 <!-- Close Header -->
@@ -83,8 +56,8 @@
 <!-- Start Content Page -->
 <div class="container-fluid bg-light py-5">
     <div class="col-md-6 m-auto text-center">
-        <h1 class="h1">Content Management System</h1>
-        <p>Product Section!</p>
+        <h1 class="h1">Sistema de gerenciamento de conteúdo</h1>
+        <p>Seção de produtos!</p>
     </div>
 </div>
 
@@ -119,12 +92,12 @@
                             <div class="form-group">
                                 <label for="price"><strong>Preço</strong></label>
                                 <input type="number" class="form-control" required th:field="*{price}" name="price" id="price"
-                                       placeholder="Price">
+                                       placeholder="Preço">
                             </div>
                             <br>
                             <div class="form-group">
                                 <label for="rating"><strong>Avaliação</strong></label>
-                                <input type="number" class="form-control" required th:field="*{rating}" name="rating" id="rating" placeholder="Rating" min="1" max="5">
+                                <input type="number" class="form-control" required th:field="*{rating}" name="rating" id="rating" placeholder="Avaliação" min="1" max="5">
                             </div>
                             <div class="form-group">
                                 <label for="description"><strong>Descrição</strong></label>
@@ -139,7 +112,7 @@
                             </div>
                             <input type="hidden" name="imgName" th:value="${productDTO.imageName}">
                             <br>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
                         </form>
                     </div>
                 </div>
@@ -161,7 +134,7 @@
                     <div class="row pt-2">
                         <div class="col-12">
                             <p class="text-left text-light">
-                                Copyright &copy; 2023
+                                Copyright &copy;  2023 PT IV
                             </p>
                         </div>
                     </div>

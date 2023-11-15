@@ -94,7 +94,7 @@
                         <p class="h3 py-2"><strong>Categoria:</strong></p>
                         <p class="h4 py-2" th:text="${product.category.name}"></p>
 
-                        <p class="h3 py-2"><strong>Preco:</strong></p>
+                        <p class="h3 py-2"><strong>Preço:</strong></p>
                         <p class="h4 py-2">R$
                             <span th:text="${#numbers.formatDecimal(product.price,  1, 'COMMA', 2, 'POINT')}">
                         </span></p>
@@ -115,7 +115,7 @@
                             </div>
                             <br>
                             <div class="input-group d-flex justify-content-center border-0 px-0 pb-0">
-                                <input type="submit" value="Add To Cart" id="buttonAdd2Cart" class="btn btn-success">
+                                <input type="submit" value="Adicionar ao carrinho" id="buttonAdd2Cart" class="btn btn-success">
                             </div>
                         </form>
                     </div>
