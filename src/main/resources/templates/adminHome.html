@@ -40,33 +40,12 @@
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" href="#"></a>
+                        <a class="nav-link" th:href="@{/admin}" href="#" style="color: white;">Admin home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/}" href="#" style="color: white;">Home</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/shop}" href="#" style="color: white;">Produtos</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#" style="color: white;">Login</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#" style="color: white;">Logout</a>
+                        <a class="nav-link" th:href="@{/logout}" href="#" style="color: white;">logout</a>
                     </li>
                 </ul>
-            </div>
-            <div class="navbar align-self-center d-flex">
-                <!-- this is the cart icon  -->
-                <a class="nav-icon position-relative text-decoration-none" sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/cart}">
-                    <i class="fa fa-fw fa-cart-arrow-down text-white mr-1"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark" sec:authorize="hasAuthority('CUSTOMER')" th:text="${cartCount}">0</span>
-                </a>
-                <!-- this is the profile icon -->
-                <a class="nav-icon position-relative text-decoration-none" sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/profile}" href="#">
-                    <i class="fa fa-fw fa-user text-white mr-3"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                </a>
             </div>
         </div>
     </div>
