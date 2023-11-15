@@ -83,9 +83,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/add")
-    public String postAddCustomerProfile(@ModelAttribute("customerProfileDTO") CustomerProfileDTO customerProfileDTO,
-                                         @RequestParam("prescriptionImage") MultipartFile multipartFile,
-                                         @RequestParam("imgName") String prescriptionImgName) throws IOException {
+    public String postAddCustomerProfile(@ModelAttribute("customerProfileDTO") CustomerProfileDTO customerProfileDTO) throws IOException {
 
         // get the user
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
@@ -102,28 +100,17 @@ public class ProfileController {
         }
         //set all the attributes
         customerProfile.setEmail(user.getEmail());
-        customerProfile.setAddress(customerProfileDTO.getAddress());
-        customerProfile.setCounty(customerProfileDTO.getCounty());
-        customerProfile.setPostcode(customerProfileDTO.getPostcode());
-        customerProfile.setRightEye(customerProfileDTO.getRightEye());
-        customerProfile.setLeftEye(customerProfileDTO.getLeftEye());
+        customerProfile.setCep(customerProfileDTO.getCep());
+        customerProfile.setRua(customerProfileDTO.getRua());
+        customerProfile.setNumero(customerProfileDTO.getNumero());
+        customerProfile.setBairro(customerProfileDTO.getBairro());
+        customerProfile.setCidade(customerProfileDTO.getCidade());
+        customerProfile.setUf(customerProfileDTO.getUf());
+        customerProfile.setLogradouro(customerProfileDTO.getLogradouro());
 
         //setting a variable for the name
-        String imageIndenifier;
 
         //if the multipartFile object is not empty in passing from the front-end
-        if(!multipartFile.isEmpty()){
-            //assign the filename
-            imageIndenifier = multipartFile.getOriginalFilename();
-            // this creates the path where the image is to be uploaded to the system
-            Path fileNameAndPath = Paths.get(uploadDir, imageIndenifier);
-            //this writes the actual file and uploads to the system
-            Files.write(fileNameAndPath, multipartFile.getBytes());
-        }else {
-            //the file is empty
-            imageIndenifier = prescriptionImgName;
-        }
-        customerProfile.setPrescriptionImgName(imageIndenifier);
 
         //this writes to the db
         customerProfileService.addCustomerProfile(customerProfile);
@@ -148,12 +135,13 @@ public class ProfileController {
         CustomerProfile customerProfile = customerProfileService.getCustomerProfile(user.getCustomerProfile().getId()).get();
 
         CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO();
-        customerProfileDTO.setAddress(customerProfile.getAddress());
-        customerProfileDTO.setCounty(customerProfile.getCounty());
-        customerProfileDTO.setPostcode(customerProfile.getPostcode());
-        customerProfileDTO.setLeftEye(customerProfile.getLeftEye());
-        customerProfileDTO.setRightEye(customerProfile.getRightEye());
-        customerProfileDTO.setPrescriptionImgName(customerProfile.getPrescriptionImgName());
+        customerProfile.setCep(customerProfileDTO.getCep());
+        customerProfile.setRua(customerProfileDTO.getRua());
+        customerProfile.setNumero(customerProfileDTO.getNumero());
+        customerProfile.setBairro(customerProfileDTO.getBairro());
+        customerProfile.setCidade(customerProfileDTO.getCidade());
+        customerProfile.setUf(customerProfileDTO.getUf());
+        customerProfile.setLogradouro(customerProfileDTO.getLogradouro());
 
         Integer totalQuantity = shoppingCartService.cartCount(shoppingCartService.listCartItems(customerProfile));
         model.addAttribute("cartCount", totalQuantity);

@@ -1,35 +1,44 @@
 package com.PTIV.loja.de.games.dto;
 
+import com.PTIV.loja.de.games.model.User;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
+
 public class CustomerProfileDTO {
 
     private Integer id;
     private String email;
-    private String address;
-    private String county;
-    private String postcode;
-    private double rightEye;
-    private double leftEye;
-    private String prescriptionImgName;
+
+    private String cep;
+
+    private String rua;
+
+    private String numero;
+
+    private String bairro;
+
+    private String cidade;
+
+    private String uf;
+
+    private String logradouro;
+
 
     public CustomerProfileDTO() {
     }
 
-    public CustomerProfileDTO(Integer id,
-                              String email,
-                              String address,
-                              String county,
-                              String postcode,
-                              double rightEye,
-                              double leftEye,
-                              String prescriptionImgName) {
+    public CustomerProfileDTO(Integer id, String email, String cep, String rua, String numero, String bairro, String cidade, String uf, String logradouro, User user) {
         this.id = id;
         this.email = email;
-        this.address = address;
-        this.county = county;
-        this.postcode = postcode;
-        this.rightEye = rightEye;
-        this.leftEye = leftEye;
-        this.prescriptionImgName = prescriptionImgName;
+        this.cep = cep;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.logradouro = logradouro;
     }
 
     public Integer getId() {
@@ -48,52 +57,59 @@ public class CustomerProfileDTO {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCep() {
+        return cep;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
-    public String getCounty() {
-        return county;
+    public String getRua() {
+        return rua;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-
-    public double getRightEye() {
-        return rightEye;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setRightEye(double rightEye) {
-        this.rightEye = rightEye;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public double getLeftEye() {
-        return leftEye;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setLeftEye(double leftEye) {
-        this.leftEye = leftEye;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getPrescriptionImgName() {
-        return prescriptionImgName;
+    public String getUf() {
+        return uf;
     }
 
-    public void setPrescriptionImgName(String prescriptionImgName) {
-        this.prescriptionImgName = prescriptionImgName;
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 }

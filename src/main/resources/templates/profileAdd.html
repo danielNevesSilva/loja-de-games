@@ -53,7 +53,7 @@
     <div class="container d-flex justify-content-between align-items-center">
 
         <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/}" href="#">
-            SimpleFocals
+            PTIV
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -112,7 +112,7 @@
 <!-- Start Content Page -->
 <div class="container-fluid bg-light py-5">
     <div class="col-md-6 m-auto text-center">
-        <h1 class="h1">Your Account</h1>
+        <h1 class="h1">Sua conta</h1>
     </div>
 </div>
 
@@ -125,14 +125,14 @@
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3 shadow bg-white rounded">
                         <div class="card-body">
-                            <p class="h2 text-center">Your Login Details</p>
+                            <p class="h2 text-center">Dados de login</p>
                             <br>
                             <div class="form-group">
-                                <label for="firstName"><strong>First Name</strong></label>
+                                <label for="firstName"><strong>Nome</strong></label>
                                 <p class="form-control" th:text="${firstName}" id="firstName"></p>
                             </div>
                             <div class="form-group">
-                                <label for="lastName"><strong>Last Name</strong></label>
+                                <label for="lastName"><strong>Sobrenome</strong></label>
                                 <p class="form-control" th:text="${lastName}" id="lastName"></p>
                             </div>
                             <div class="form-group" >
@@ -145,56 +145,48 @@
                 <div class="col-lg-7 mt-5">
                     <div class="card shadow bg-white rounded">
                         <div class="card-body">
-                            <form th:action="@{/profile/add}" method="post" th:object="${customerProfileDTO}" enctype="multipart/form-data">
-                                <div class="row">
-                                    <input type="hidden" name="id" th:field="*{id}">
-                                    <h1 class="h2 text-center">Edit your Personal Details</h1>
-                                    <div class="form-group">
-                                        <label for="address"><strong>Address</strong></label>
-                                        <textarea class="form-control" required rows="3" th:field="*{address}" name="address" id="address"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="county"><strong>County</strong></label>
-                                        <select class="form-control" required th:field="*{county}" id="county" name="county">
-                                            <option value="Carlow">Carlow</option>
-                                            <option value="Cavan">Cavan</option>
-                                            <option value="Clare">Clare</option>
-                                            <option value="Cork">Cork</option>
-                                            <option value="Donegal">Donegal</option>
-                                            <option value="Dublin">Dublin</option>
-                                            <option value="Galway">Galway</option>
-                                            <option value="Kerry">Kerry</option>
-                                            <option value="Kildare">Kildare</option>
-                                            <option value="Kilkenny">Kilkenny</option>
-                                            <option value="Laois">Laois</option>
-                                            <option value="Leitrim">Leitrim</option>
-                                            <option value="Limerick">Limerick</option>
-                                            <option value="Longford">Longford</option>
-                                            <option value="Louth">Louth</option>
-                                            <option value="Mayo">Mayo</option>
-                                            <option value="Meath">Meath</option>
-                                            <option value="Monaghan">Monaghan</option>
-                                            <option value="Offaly">Offaly</option>
-                                            <option value="Roscommon">Roscommon</option>
-                                            <option value="Sligo">Sligo</option>
-                                            <option value="Tipperary">Tipperary</option>
-                                            <option value="Waterford">Waterford</option>
-                                            <option value="Westmeath">Westmeath</option>
-                                            <option value="Wexford">Wexford</option>
-                                            <option value="Wicklow">Wicklow</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="postcode"><strong>Postcode</strong></label>
-                                        <input type="text" class="form-control" required th:field="*{postcode}" name="postcode" id="postcode"
-                                               placeholder="Enter postcode" maxlength="7">
-                                    </div>
+                            <form th:action="@{/profile/add}" method="post" th:object="${customerProfileDTO}">
+                                <input type="hidden" name="id" th:field="*{id}">
+                                <h1 class="h2 text-center">Atualize seu endereço</h1>
 
-                                    <input type="hidden" name="imgName" th:value="${customerProfileDTO.prescriptionImgName}">
-                                    <button type="submit" class="btn btn-success">Submit</button>
-
+                                <div class="form-group">
+                                    <label for="cep"><strong>CEP</strong></label>
+                                    <input type="text" class="form-control" required th:field="*{cep}" name="cep" id="cep" placeholder="Enter CEP">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="rua"><strong>Rua</strong></label>
+                                    <input type="text" class="form-control" required th:field="*{rua}" name="rua" id="rua" placeholder="Enter street">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="numero"><strong>Numero</strong></label>
+                                    <input type="text" class="form-control" required th:field="*{numero}" name="numero" id="numero" placeholder="Enter number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bairro"><strong>Bairro</strong></label>
+                                    <input type="text" class="form-control" required th:field="*{bairro}" name="bairro" id="bairro" placeholder="Enter neighborhood">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cidade"><strong>Cidade</strong></label>
+                                    <input type="text" class="form-control" required th:field="*{cidade}" name="cidade" id="cidade" placeholder="Enter city">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="uf"><strong>UF</strong></label>
+                                    <input type="text" class="form-control" required th:field="*{uf}" name="uf" id="uf" placeholder="Enter UF">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="logradouro"><strong>Logradouro</strong></label>
+                                    <input type="text" class="form-control" th:field="*{logradouro}" name="logradouro" id="logradouro" placeholder="Enter address">
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Salvar</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -211,7 +203,7 @@
         <div class="row">
 
             <div class="col-md-4 pt-5">
-                <h2 class="h2 text-success border-bottom pb-3 border-light logo">SimpleFocals</h2>
+                <h2 class="h2 text-success border-bottom pb-3 border-light logo">PTIV</h2>
                 <ul class="list-unstyled text-light footer-link-list">
                     <li>
                         <i class="fas fa-map-marker-alt fa-fw"></i>
@@ -292,6 +284,8 @@
 
 <!-- Start Script -->
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/buscaCep.js"></script>
+
 <!-- End Script -->
 </body>
 

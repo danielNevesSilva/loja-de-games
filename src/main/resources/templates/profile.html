@@ -53,7 +53,7 @@
     <div class="container d-flex justify-content-between align-items-center">
 
         <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/}" href="#">
-            SimpleFocals
+            PTIV
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -112,7 +112,7 @@
 <!-- Start Content Page -->
 <div class="container-fluid bg-light py-5">
     <div class="col-md-6 m-auto text-center">
-        <h1 class="h1">Your Account</h1>
+        <h1 class="h1">Sua conta</h1>
 
     </div>
 </div>
@@ -124,14 +124,14 @@
             <div class="col-lg-5 mt-5">
                 <div class="card mb-3 shadow bg-white rounded">
                     <div class="card-body">
-                        <p class="h2 text-center">Your Login Details</p>
+                        <p class="h2 text-center">Dados de login</p>
                         <br>
                         <div class="form-group">
-                            <label for="firstName"><strong>First Name</strong></label>
+                            <label for="firstName"><strong>Nome</strong></label>
                             <p class="form-control" th:text="${firstName}" id="firstName"></p>
                         </div>
                         <div class="form-group">
-                            <label for="lastName"><strong>Last Name</strong></label>
+                            <label for="lastName"><strong>Sobrenome</strong></label>
                             <p class="form-control" th:text="${lastName}" id="lastName"></p>
                         </div>
                         <div class="form-group" >
@@ -145,28 +145,44 @@
             <div class="col-lg-7 mt-5">
                 <div class="card shadow bg-white rounded">
                     <div class="card-body">
-                        <h1 class="h2 text-center">Personal Details</h1>
+                        <h1 class="h2 text-center">Endereço</h1>
                         <form class="form-group">
                             <div th:if="${customerProfile != null}">
                                 <div class="form-group">
-                                    <label for="address"><strong>Address</strong></label>
-                                    <p class="form-control" th:text="${customerProfile.address}" id="address"></p>
+                                    <label for="cep"><strong>Cep</strong></label>
+                                    <p class="form-control" th:text="${customerProfile.cep}" id="cep"></p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="county"><strong>County</strong></label>
-                                    <p class="form-control" th:text="${customerProfile.county}" id="county"></p>
+                                    <label for="rua"><strong>Rua</strong></label>
+                                    <p class="form-control" th:text="${customerProfile.rua}" id="rua"></p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="postcode"><strong>Post Code</strong></label>
-                                    <p class="form-control" th:text="${customerProfile.postcode}" id="postcode"></p>
+                                <label for="numero"><strong>Numero</strong></label>
+                                <p class="form-control" th:text="${customerProfile.numero}" id="numero"></p>
+                            </div>
+                                <div class="form-group">
+                                    <label for="bairro"><strong>Bairro</strong></label>
+                                    <p class="form-control" th:text="${customerProfile.bairro}" id="bairro"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cidade"><strong>Cidade</strong></label>
+                                    <p class="form-control" th:text="${customerProfile.cidade}" id="cidade"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="uf"><strong>Uf</strong></label>
+                                    <p class="form-control" th:text="${customerProfile.uf}" id="uf"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logradouro"><strong>Logradouro</strong></label>
+                                    <p class="form-control" th:text="${customerProfile.logradouro}" id="logradouro"></p>
                                 </div>
 
                                 <div class="form-group">
-                                    <a href="" th:href="@{/profile/update}" class="btn btn-success">Update Your Details</a>
+                                    <a href="" th:href="@{/profile/update}" class="btn btn-success">Atualizar endereço</a>
                                 </div>
                             </div>
                             <div th:if="${customerProfile == null}">
-                                <a href="" th:href="@{/profile/add}" class="btn btn-success">Add more details to your profile</a>
+                                <a href="" th:href="@{/profile/add}" class="btn btn-success">Adicionar endereço</a>
                             </div>
                         </form>
                     </div>
