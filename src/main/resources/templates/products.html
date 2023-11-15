@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>SimpleFocals - Everyday Eyewear</title>
+    <title>PT-IV</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -54,7 +54,7 @@
 <!-- Start Content Page -->
 <div class="container-fluid bg-light py-5">
     <div class="col-md-6 m-auto text-center">
-        <h1 class="h1">Content Management System</h1>
+        <h1 class="h1">Sistema de gerenciamento de conteúdo</h1>
         <p>
             Products Section
         </p>
@@ -68,7 +68,7 @@
             <div class="col-lg-10 m-auto mt-5">
                 <div class="card mb-3 shadow bg-white rounded">
                     <div class="card-body ">
-                        <h1 class="h2 text-center">Product Section</h1>
+                        <h1 class="h2 text-center">Seção de Produto</h1>
                         <br>
                         <!--    here is the url to the backend-->
                         <a th:href="@{/admin/products/add}" style="margin: 20px 0" class="btn btn-success">Add Product</a>
@@ -76,11 +76,11 @@
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Imagem</th>
+                                <th scope="col">Deletar</th>
                             </tr>
                             </thead>
                             <br>
@@ -94,7 +94,7 @@
                                          th:src="@{${'/images/' + product.imageName}}"></td>
                                 <td><a href="" th:href="@{/shop/viewproductAdmin/{id}(id=${product.id})}" class="btn btn-outline-secondary">Detalhes </a></td>
                                 <td><a href="" th:href="@{/admin/product/delete/{id}(id=${product.id})}"
-                                       class="btn btn-outline-secondary">Delete</a></td>
+                                       class="btn btn-outline-secondary">Deletar</a></td>
                             </tr>
                             </tbody>
                         </table>

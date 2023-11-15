@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
-  <title>Accept a card payment</title>
+  <title>PT-IV</title>
   <meta name="description" content="A demo of a card payment on Stripe" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -23,7 +23,7 @@
 
 <form id="payment-form">
   <p><b>Bem-vindo ao processamento seguro de pagamentos da PTIV, realizado pela Stripe</b></p>
-  <p>Você será cobrado no valor de <b>$ <span th:text="${total}" id="amount">2</span></b></p>
+  <p>Você será cobrado no valor de <b>R$ <span th:text="${total}" id="amount">2</span></b></p>
   <p>Após a conclusão da transação, um e-mail de confirmação será enviado para <b><span id="email" th:text="${email}">2</span></b></p>
   <br>
   <!--  <input type="text" id="email" placeholder="Endereço de e-mail" readonly/>-->

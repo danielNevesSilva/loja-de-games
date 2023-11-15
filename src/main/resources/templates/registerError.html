@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-    <title>SimpleFocals - Everyday Eyewear</title>
+    <title>PT-IV</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -123,39 +123,38 @@
             <div class="col-lg-6 m-auto mt-5">
                 <div class="card mb-3 shadow bg-white rounded">
                     <div class="card-body ">
-                        <p class="h2 text-center">Register</p>
+                        <p class="h2 text-center">Cadastro de registro</p>
                         <br>
-                        <p>Please fill out this to register</p>
+                        <p>Por favor, preencha isso para se cadastrar.</p>
                         <form th:action="@{/register}" th:object="${user}" method="post">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" name="firstName" id="firstName" required placeholder="first name" class="form-control form-control-lg">
+                                <label for="firstName">Primeiro nome</label>
+                                <input type="text" name="firstName" id="firstName" required placeholder="Primeiro nome" class="form-control form-control-lg">
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" name="lastName" id="lastName" required placeholder="last name" class="form-control form-control-lg">
+                                <label for="lastName">ultimo Nome</label>
+                                <input type="text" name="lastName" id="lastName" required placeholder="Ultimo nome" class="form-control form-control-lg">
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="email">Email address</label>
+                                <label for="email">Email </label>
                                 <input type="email" class="form-control form-control-lg" required minlength="6" placeholder="email" name="email" id="email"
                                        aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">You email will be used for your login.</small>
+                                <small id="emailHelp" class="form-text text-muted">Seu e-mail será usado para o seu login.</small>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control form-control-lg" required placeholder="password" name="password"
+                                <label for="password">Senha</label>
+                                <input type="password" class="form-control form-control-lg" required placeholder="senha" name="password"
                                        id="password">
                             </div>
                             <div class="alert alert-error text-danger">
-                                That email address has already been used. Please correct register with a different email address.
-                            </div>
+                                Esse endereço de e-mail já foi utilizado. Por favor, faça o registro corrigindo com um endereço de e-mail diferente.                            </div>
                             <br>
-                            <input type="submit" value="Click here to Register" class="btn btn-success btn-block">
+                            <input type="submit" value="Cadastrar" class="btn btn-success btn-block">
                             <br>
-                            <p style="margin-top: 10px">Already have an account <a class="linkControl text-decoration-none" href="login.html" th:href="@{/login}">Login here</a></p>
+                            <p style="margin-top: 10px">Já tenho uma conta. <a class="linkControl text-decoration-none" href="login.html" th:href="@{/login}">Faça o login</a></p>
                         </form>
                     </div>
                 </div>

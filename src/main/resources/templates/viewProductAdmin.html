@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-    <title>SimpleFocals - </title>
+    <title>PT-IV</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -94,7 +94,7 @@
                         <p class="h4 py-2" th:text="${product.category.name}"></p>
 
                         <p class="h3 py-2"><strong>Preco:</strong></p>
-                        <p class="h4 py-2">$
+                        <p class="h4 py-2">R$
                             <span th:text="${#numbers.formatDecimal(product.price,  1, 'COMMA', 2, 'POINT')}">
                         </span></p>
                         <p class="h3 py-2"><strong>Descrição:</strong></p>
