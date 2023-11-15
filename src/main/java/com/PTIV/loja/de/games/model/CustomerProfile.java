@@ -12,23 +12,26 @@ public class CustomerProfile {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "address", nullable = false)
-    private String address;
+    @Column(name = "cep", nullable = false)
+    private String cep;
 
-    @Column(name = "county", nullable = false)
-    private String county;
+    @Column(name = "rua", nullable = false)
+    private String rua;
 
-    @Column(name = "postcode", nullable = false, length = 7)
-    private String postcode;
+    @Column(name = "numero", nullable = false)
+    private String numero;
 
-    @Column(name = "right_eye", nullable = false)
-    private double rightEye;
+    @Column(name = "bairro", nullable = false)
+    private String bairro;
 
-    @Column(name = "left_eye", nullable = false)
-    private double leftEye;
+    @Column(name = "cidade", nullable = false)
+    private String cidade;
 
-    @Column(name = "prescription_img_name")
-    private String prescriptionImgName;
+    @Column(name = "uf", nullable = false)
+    private String uf;
+
+    @Column(name = "logradouro")
+    private String logradouro;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customerProfile")
     private User user;
@@ -40,25 +43,16 @@ public class CustomerProfile {
         this.id = id;
     }
 
-    public CustomerProfile(Integer id,
-                           String email,
-                           String address,
-                           String county,
-                           String postcode,
-//                           Integer phoneNo,
-                           double rightEye,
-                           double leftEye,
-                           String prescriptionImgName,
-                           User user) {
+    public CustomerProfile(Integer id, String email, String cep, String rua, String numero, String bairro, String cidade, String uf, String logradouro, User user) {
         this.id = id;
         this.email = email;
-        this.address = address;
-        this.county = county;
-        this.postcode = postcode;
-//        this.phoneNo = phoneNo;
-        this.rightEye = rightEye;
-        this.leftEye = leftEye;
-        this.prescriptionImgName = prescriptionImgName;
+        this.cep = cep;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.logradouro = logradouro;
         this.user = user;
     }
 
@@ -78,53 +72,60 @@ public class CustomerProfile {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCep() {
+        return cep;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
-    public String getCounty() {
-        return county;
+    public String getRua() {
+        return rua;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-
-    public double getRightEye() {
-        return rightEye;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setRightEye(double rightEye) {
-        this.rightEye = rightEye;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public double getLeftEye() {
-        return leftEye;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setLeftEye(double leftEye) {
-        this.leftEye = leftEye;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getPrescriptionImgName() {
-        return prescriptionImgName;
+    public String getUf() {
+        return uf;
     }
 
-    public void setPrescriptionImgName(String prescriptionImgName) {
-        this.prescriptionImgName = prescriptionImgName;
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public User getUser() {

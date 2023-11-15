@@ -75,7 +75,7 @@ public class LoginController {
         }
 
 
-        if (userRepository.count() == 2) {
+        if (userRepository.count() == 0) {
             Role admin = roleRepository.findByName("ADMIN");
             if (admin != null) {
                 user.getRoles().add(admin);
