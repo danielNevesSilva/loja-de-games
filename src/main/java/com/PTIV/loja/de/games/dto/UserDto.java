@@ -20,12 +20,6 @@ public class  UserDto{
     @Email
     private String email;
 
-    @NotEmpty(message = "O CPF não deve estar vazio")
-    private String cpf;
-
-    @NotEmpty(message = "O genero não deve estar vazio")
-    private String gender;
-
     @NotEmpty(message = "O Senha não deve estar vazio")
     private String password;
 

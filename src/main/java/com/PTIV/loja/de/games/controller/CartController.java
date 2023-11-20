@@ -39,22 +39,9 @@ public class CartController {
     }
 
 
-    //Load the Stripe payment payment page
-    @GetMapping("/payment")
-    public String home(Model model){
-        //get the user
-        User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
-        //get the customer Profile
-        CustomerProfile customerProfile = user.getCustomerProfile();
-        //get the cartItems of the customer Profile
-        List<CartItem> cartItemList = shoppingCartService.listCartItems(customerProfile);
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-        //set the objects to the model and load the page
-        model.addAttribute("email", customUserDetailsService.returnUsername());
-        model.addAttribute("total", decimalFormat.format(shoppingCartService.totalCost(cartItemList)));
-        return "payment";
-    }
+    //Load the Stripe payment payment page
+
 
     //Add to Cart
     @PostMapping("/addToCart/{id}")
@@ -151,7 +138,16 @@ public class CartController {
         //---------Display to the view ----------------------------------
         model.addAttribute("customerProfile", customerProfile);
         model.addAttribute("cartCount", totalQuantity);
-        model.addAttribute("total", decimalFormat.format(shoppingCartService.totalCost(cartItemList)));
+        model.addAttribute("cartItemList", cartItemList);
+
+        double totalCostWithoutShipping = shoppingCartService.totalCost(cartItemList);
+
+        // Adiciona o custo fixo de frete
+        double shippingCost = 10.00;
+        double totalCostWithShipping = totalCostWithoutShipping + shippingCost;
+
+        model.addAttribute("total", decimalFormat.format(totalCostWithShipping));
+
 
         return "checkout";
     }

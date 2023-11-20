@@ -19,18 +19,17 @@ public class OrderHistory {
     private int quantity;
     private double subtotal;
 
-    @Column(name = "date_created")
-    private String dateCreated;
+
 
     public OrderHistory() {
     }
 
-    public OrderHistory(int customerId, int productId, int quantity, float subtotal, String dateCreated) {
+    public OrderHistory(int customerId, int productId, int quantity, float subtotal, boolean paid) {
         this.customerId = customerId;
         this.productId = productId;
         this.quantity = quantity;
         this.subtotal = subtotal;
-        this.dateCreated = dateCreated;
+
     }
 
     public OrderHistory(Integer id) {
@@ -77,13 +76,6 @@ public class OrderHistory {
         this.subtotal = subtotal;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
 
     @Override
     public String toString() {
@@ -93,7 +85,6 @@ public class OrderHistory {
                 ", productId=" + productId +
                 ", quantity=" + quantity +
                 ", subtotal=" + subtotal +
-                ", dateCreated='" + dateCreated + '\'' +
                 '}';
     }
 }

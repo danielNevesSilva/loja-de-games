@@ -38,14 +38,14 @@ public class User {
     @NotEmpty(message = "name may not be empty")
     private String firstName;
     private String lastName;
-    private String cpf;
-    private String gender;
-
     @NotEmpty(message = "password may not be empty")
     private String password;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CustomerProfile customerProfile;
+
+    @OneToMany(mappedBy = "user")
+    private List<Payment> payments;
 
     public User(String email, String password, UserRole role) {
         this.email = email;
@@ -75,8 +75,6 @@ public class User {
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.cpf = user.getCpf();
-        this.gender = user.getGender();
         this.password = user.getPassword();
         this.customerProfile = user.customerProfile;
     }
@@ -135,22 +133,6 @@ public class User {
 
     public CustomerProfile getCustomerProfile() {
         return customerProfile;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public void setCustomerProfile(CustomerProfile customerProfile) {

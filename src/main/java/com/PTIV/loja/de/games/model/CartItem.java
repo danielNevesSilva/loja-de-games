@@ -18,6 +18,8 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
     private int quantity;
+    @Column(name = "paid")
+    private Boolean paid;
 
     public CartItem() {
     }
@@ -58,6 +60,14 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public Boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
     @Override
     public String toString() {
         return "CartItem{" +
@@ -65,6 +75,7 @@ public class CartItem {
                 ", customerProfile=" + customerProfile.getEmail() +
                 ", product=" + product.getName() +
                 ", quantity=" + quantity +
+                ",  paid"+
                 '}';
     }
 }

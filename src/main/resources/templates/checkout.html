@@ -138,13 +138,13 @@
                         <br>
                         <h5 class="mb-3">Resumo do pedido</h5>
 
-                        <ul class="list-group list-group-flush">
+
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                 <strong>Items:</strong>
                                 <span>R$<span th:text="${total}"></span></span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <strong>Postagem e embalagem</strong>
+                                <strong>Valor do frete</strong>
                                 <span>R$10</span>
                             </li>
                             <br>
@@ -159,8 +159,16 @@
                             </li>
                         </ul>
 
-                        <form action="" method="get" th:action="@{/payment}" class="d-flex justify-content-center border-0 px-0 pb-0">
-                            <button type="submit"  class="btn btn-success btn-block waves-effect waves-light">Pague agora</button>
+                        <form action="/payment" method="get" th:action="@{/payment}" class="d-flex justify-content-center border-0 px-0 pb-0">
+
+                        <input type="hidden" name="total" th:value="${total}" />
+                            <ul class="list-group list-group-flush">
+                                <ul th:each="cartItem : ${cartItemList}">
+                                    <input type="hidden" name="id"th:value="${cartItem.id}" />
+                                </ul>
+
+                                <!-- Adicione mais parâmetros conforme necessário -->
+                            <button type="submit" class="btn btn-success btn-block waves-effect waves-light">Pague agora</button>
                         </form>
                     </div>
                 </div>
