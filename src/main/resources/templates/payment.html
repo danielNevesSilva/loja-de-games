@@ -11,8 +11,6 @@
   <script src="https://js.stripe.com/v3/"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
   <script th:inline="javascript">
-    var stripePublicKey = /*[[${stripePublicKey}]]*/ null;
-    var amount = /*[[${amount}]]*/ null;
 
   </script>
   <script src="/js/client.js" defer></script>
@@ -21,23 +19,11 @@
 <body>
 <!-- Display a payment form -->
 
-<form id="payment-form">
-  <p><b>Bem-vindo ao processamento seguro de pagamentos da PTIV, realizado pela Stripe</b></p>
-  <p>Você será cobrado no valor de <b>R$ <span th:text="${total}" id="amount">2</span></b></p>
-  <p>Após a conclusão da transação, um e-mail de confirmação será enviado para <b><span id="email" th:text="${email}">2</span></b></p>
-  <br>
-  <!--  <input type="text" id="email" placeholder="Endereço de e-mail" readonly/>-->
-  <div id="card-element"><!--O Stripe.js injeta o Elemento do Cartão--></div>
-  <button id="submit">
-    <div class="spinner hidden" id="spinner"></div>
-    <span id="button-text">Pagar agora</span>
-  </button>
-  <p id="card-error" role="alert"></p>
-  <p class="result-message hidden">
-    Pagamento bem-sucedido, veja o resultado em seu
-    <a href="" target="_blank">painel da Stripe.</a> Atualize a página para pagar novamente.
-  </p>
-  <a class="text-decoration-none" href="shop">Clique aqui para retornar à loja.</a>
+<h1>Pagamento</h1>
+<form action="/create-payment" method="post">
+  <label for="amount">Amount:</label>
+  <input type="text" id="amount" name="amount" required/>
+  <button type="submit">Submit Payment</button>
 </form>
 
 </body>
