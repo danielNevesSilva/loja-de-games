@@ -74,17 +74,16 @@ public class PagamentoController {
 
         moveCartItemsToOrderHistory(cartItemList, customerProfile);
 
-        return "index";
+        return "redirect:/orderHistory";
     }
 
     private void moveCartItemsToOrderHistory(List<CartItem> cartItemList, CustomerProfile customerProfile) {
         for (CartItem cartItem : cartItemList) {
             OrderHistory orderHistory = new OrderHistory();
-            orderHistory.setCustomerId(customerProfile.getId());
+            orderHistory.setCustomerProfile(customerProfile);
+            orderHistory.setProduct(cartItem.getProduct());
             orderHistory.setQuantity(cartItem.getQuantity());
-            orderHistory.setProductId(cartItem.getProduct().getId());
             orderHistory.setSubtotal(cartItem.getQuantity() * cartItem.getProduct().getPrice());
-
             // Salva no histórico de pedidos
             orderHistoryRepository.save(orderHistory);
 

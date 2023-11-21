@@ -8,56 +8,52 @@ import jakarta.persistence.*;
 public class OrderHistory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "customer_id")
-    private int customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_profile_id")
+    private CustomerProfile customerProfile;
 
-    @Column(name = "product_id")
-    private int productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
     private int quantity;
     private double subtotal;
-
-
 
     public OrderHistory() {
     }
 
-    public OrderHistory(int customerId, int productId, int quantity, float subtotal, boolean paid) {
-        this.customerId = customerId;
-        this.productId = productId;
+    public OrderHistory(CustomerProfile customerProfile, Product product, int quantity, double subtotal) {
+        this.customerProfile = customerProfile;
+        this.product = product;
         this.quantity = quantity;
         this.subtotal = subtotal;
-
     }
 
-    public OrderHistory(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public CustomerProfile getCustomerProfile() {
+        return customerProfile;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomerProfile(CustomerProfile customerProfile) {
+        this.customerProfile = customerProfile;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -76,13 +72,12 @@ public class OrderHistory {
         this.subtotal = subtotal;
     }
 
-
     @Override
     public String toString() {
         return "OrderHistory{" +
                 "id=" + id +
-                ", customerId=" + customerId +
-                ", productId=" + productId +
+                ", customerProfile=" + customerProfile +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", subtotal=" + subtotal +
                 '}';

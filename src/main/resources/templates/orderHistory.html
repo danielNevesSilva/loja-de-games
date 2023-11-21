@@ -6,8 +6,10 @@
     <title>PT-IV</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/templatemo.css">
+
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet"
@@ -72,118 +74,52 @@
 <!-- Close Header -->
 
 
-<!-- Open Content -->
-<section class="bg-light">
+<!-- Start Content Page -->
+<div class="container-fluid bg-light py-5">
+    <div class="col-md-6 m-auto text-center">
+        <h1 class="h1">Meus pedidos</h1>
+
+    </div>
+</div>
+
+<!-- Start Contact -->
+<section >
     <div class="container pb-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-lg-6 mt-5">
+        <div class="row">
+            <div class="col-lg-5 mt-5">
                 <div class="card mb-3 shadow bg-white rounded">
                     <div class="card-body">
-                        <!--                        <form class="form-group">-->
-                        <p class="h2 text-center">Detalhes do usuario</p>
-                        <br>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"><strong>Nome:</strong>
-                                <span th:text="${firstName}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"><strong>Sobrenome:</strong>
-                                <span th:text="${lastName}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"><strong>Email:</strong>
-                                <span th:text="${email}"></span>
-                            </li>
-                            <!-- Detalhes do Endereço -->
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.cep}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.rua}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.numero}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.bairro}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.cidade}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.uf}"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${customerProfile.logradouro}"></span>
+                        <ul>
+
+                            <li th:each="orderHistory : ${orderHistoryList}">
+
+                                <label>Produto: </label><p th:text="${orderHistory.product.name}"></p>
+                                <label>Preço: </label><p th:text="${orderHistory.product.price}"></p>
+                                <label>Descrição: </label><p th:text="${orderHistory.product.description}"></p>
+                                <label>Quantidade: </label><p th:text="${orderHistory.quantity}"></p>
+                                <img class="img-fluid w-50"
+                                     th:src="@{${'/Images/' + orderHistory.getProduct().imageName}}">
                             </li>
 
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <span th:text="${email}"></span>
-                            </li>
-
-                            <br>
-                            <li class="list-group-item d-flex justify-content-center border-0 px-0 pb-0">
-                                <a href="" th:href="@{/profile/update}" class="btn btn-success">Atualize seu endereço</a>
-                            </li>
                         </ul>
-                        <br>
+                        </div>
                     </div>
-
                 </div>
             </div>
-            <!-- col end -->
-            <div class="col-lg-4 mt-5">
-                <div class="card shadow bg-white rounded">
-                    <div class="card-body">
 
-                        <p class="h2 text-center">Fazer pagamento</p>
-                        <br>
-                        <h5 class="mb-3">Resumo do pedido</h5>
+        <div class="col-lg-7 mt-5">
+            <div class="card shadow bg-white rounded">
+                <div class="card-body">
+                    <h1 class="h2 text-center"></h1>
 
-
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                <strong>Items:</strong>
-                                <span>R$<span th:text="${total}"></span></span>
-                                <span>R$<span th:text="${total}"></span></span>
-                                <span>R$<span th:text="${total}"></span></span>
-
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <strong>Frete</strong>
-                                <span>R$10</span>
-                            </li>
-                            <br>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                <div>
-                                    <strong>Total:</strong>
-                                    <strong>
-                                        <p class="mb-0">(Frete incluso)</p>
-                                    </strong>
-                                </div>
-                                <span><strong>R$<span th:text="${total}"></span></strong></span>
-                            </li>
-                        </ul>
-
-                        <form action="/payment" method="get" th:action="@{/payment}" class="d-flex justify-content-center border-0 px-0 pb-0">
-
-                        <input type="hidden" name="total" th:value="${total}" />
-                            <ul class="list-group list-group-flush">
-                                <ul th:each="cartItem : ${cartItemList}">
-                                    <input type="hidden" name="id"th:value="${cartItem.id}" />
-                                </ul>
-
-                                <!-- Adicione mais parâmetros conforme necessário -->
-                            <button type="submit" class="btn btn-success btn-block waves-effect waves-light">Pague agora</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <br>
-    <br>
-    <br>
+    </div>
 </section>
-<!-- Close Content -->
+
+
 
 <!-- Start Footer -->
 <footer class="bg-dark" id="tempaltemo_footer">
@@ -272,8 +208,6 @@
 <!-- Start Script -->
 <script src="/js/bootstrap.bundle.min.js"></script>
 <!-- End Script -->
-
-
 </body>
 
 </html>
