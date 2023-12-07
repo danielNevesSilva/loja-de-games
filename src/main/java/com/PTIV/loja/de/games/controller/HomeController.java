@@ -21,7 +21,7 @@ import java.util.List;
 public class HomeController {
 
 //    @Autowired
-//    private QuantityService quantityService;
+//    private QuantidadeServiço quantidadeServiço;
 
     @Autowired
     private ProductService productService;
@@ -38,10 +38,10 @@ public class HomeController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    //the homepage of the web application
+    //a página inicial do aplicativo da web
     @GetMapping({"/", "/home"})
     public String viewIndex(Model model){
-//-----Code fragment to get the cart number---------
+//-----Fragmento de código para obter o número do carrinho---------
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.getName().equals("anonymousUser")){
             User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
@@ -65,10 +65,10 @@ public class HomeController {
         return "index";
     }
 
-    //render the shop page
+    //renderizar a página da loja
     @GetMapping("/shop")
     public String viewShop(Model model){
-        //-----Code fragment to get the cart number---------
+        //-----Fragmento de código para obter o número do carrinho---------
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.getName().equals("anonymousUser")){
             User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
@@ -88,11 +88,11 @@ public class HomeController {
         return "shop";
     }
 
-    //filter by category
+    //Filtrar por categoria
     @GetMapping("/shop/category/{id}")
     public String viewByCategories(@PathVariable int id, Model model){
 
-        //-----Code fragment to get the cart number---------
+        //-----Fragmento de código para obter o número do carrinho---------
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.getName().equals("anonymousUser")){
             User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
@@ -111,10 +111,10 @@ public class HomeController {
         return "shop";
     }
 
-    //customer view product page
+    //cliente visualizar página do produto
     @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable int id, Model model){
-        //-----Code fragment to get the cart number---------
+        //-----Fragmento de código para obter o número do carrinho---------
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.getName().equals("anonymousUser")){
             User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
@@ -136,7 +136,7 @@ public class HomeController {
 
     @GetMapping("/shop/viewproductAdmin/{id}")
     public String viewProductAdmin(@PathVariable int id, Model model){
-        //-----Code fragment to get the cart number---------
+        //-----Fragmento de código para obter o número do carrinho---------
         //-----------------------------------------------
 
         model.addAttribute("quantityObj", new Quantity());

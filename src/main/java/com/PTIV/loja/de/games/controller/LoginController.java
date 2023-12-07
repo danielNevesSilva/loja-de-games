@@ -42,25 +42,25 @@ public class LoginController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    //login page
+    //Pagina login
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    //register page
+    //Pagina registro
     @GetMapping("/register")
     public String getRegister() {
         return "register";
     }
 
-    //error in register page
+    //Erro na página de registro
     @GetMapping("/registerError")
     public String getRegisterError() {
         return "registerError";
     }
 
-    // post details for registering a new customer
+    // postar detalhes para registrar um novo cliente
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, BindingResult result) {
 

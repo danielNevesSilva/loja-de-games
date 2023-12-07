@@ -29,18 +29,18 @@ public class AdminController {
     @Autowired
     private ProductService productService;
 
-    // setting a variable for the directory of the product images
+    // definindo uma variável para o diretório das imagens do produto
     public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/Images";
 
 
-    //admin home page
+    //página inicial do administrador
     @GetMapping("/admin")
     public String adminHome(){
         return "adminHome";
     }
 
 
-    //categories page for CMS
+    //página de categorias para CMS
     @GetMapping("/admin/categories")
     public String viewCategories(Model model){
         List<Category> categories = categoryService.getAllCategories();
@@ -48,31 +48,31 @@ public class AdminController {
         return "/categories";
     }
 
-    //Add Category page for CMS
+    //Adicionar página de categoria para CMS
     @GetMapping("/admin/categories/add")
     public String getAddCategory(Model model){
-        //thymeleaf is looking for a "category" obj in the front-end
-        // we define a new Category obj with alias "category"
+        //thymeleaf está procurando um objeto de "categoria" no front-end
+        // definimos um novo objeto de categoria com o alias "category"
         Category category = new Category();
         model.addAttribute("category", category);
         return "categoriesAdd";
     }
 
-    //Add Category
+    //Adicionar categoria
     @PostMapping("/admin/categories/add")
     public String postAddCategory(@ModelAttribute("category") Category category){
         categoryService.addCategory(category);
         return "redirect:/admin/categories";
     }
 
-    //Delete Category
+    //Excluir categoria
     @GetMapping("/admin/categories/delete/{id}")
     public String deleteCategory(@PathVariable int id){
         categoryService.deleteCategoryById(id);
         return "redirect:/admin/categories";
     }
 
-    //Products page CMS
+    //CMS da página de produtos
     @GetMapping("/admin/products")
     public String viewProducts(Model model){
         List<Product> products = productService.getAllProducts();
@@ -80,7 +80,7 @@ public class AdminController {
         return "products";
     }
 
-    //Add Products Page
+    //Página Adicionar Produtos
     @GetMapping("/admin/products/add")
     public String getAddProducts(Model model){
         model.addAttribute("productDTO", new ProductDTO());
@@ -89,51 +89,51 @@ public class AdminController {
         return "productsAdd";
     }
 
-    //Add Product
+    //Adicionar Produtos
     @PostMapping("/admin/products/add")
     public String postAddProducts(@ModelAttribute("productDTO") ProductDTO productDTO,
                                   @RequestParam("productImage") MultipartFile multipartFile,
                                   @RequestParam("imgName") String imageName) throws IOException {
 
-//       Use the productDTO obj to transfer the attributes to product object
+//       Use o objeto productDTO para transferir os atributos para o objeto produto
         Product product = new Product();
         product.setId(productDTO.getId());
         product.setName(productDTO.getName());
 
-//        we need to pass the category to the product
-//        the ProductDTO only has the category id
+//        precisamos passar a categoria para o produto
+//        o ProductDTO possui apenas o id da categoria
         Integer categoryId = productDTO.getCategoryId();
         String categoryName = productDTO.getName();
 
-        // set the attributes for the product
+        // definir os atributos do produto
         product.setCategory(categoryService.getCategoryById(productDTO.getCategoryId()).get());
         product.setPrice(productDTO.getPrice());
         product.setDescription(productDTO.getDescription());
         product.setRating(productDTO.getRating());
 
-        //Name of the image
+        //Nome da imagem
         String imageIdentifier;
-        //if the multipartFile object is not empty in passing from the front-end
+        //se o objeto multipartFile não estiver vazio ao passar do front-end
         if(!multipartFile.isEmpty()){
             imageIdentifier = multipartFile.getOriginalFilename();
-            // this creates the path where the image is to be uploaded to the system
+            // isso cria o caminho onde a imagem deve ser carregada no sistema
             Path fileNameAndPath = Paths.get(uploadDir, imageIdentifier);
             //this writes the actual file and uploads to the system
             Files.write(fileNameAndPath, multipartFile.getBytes());
         }else {
-            //the file is empty
+            //o arquivo está vazio
             imageIdentifier = imageName;
         }
-        //set the last attributes of the product
+        //definir os últimos atributos do produto
         product.setImageName(imageIdentifier);
-        //save the object to db
+        //salve o objeto em db
         productService.addProduct(product);
 
-        //redirect to products page
+        //redirecionar para a página de produtos
         return "redirect:/admin/products";
     }
 
-    //Delete Product
+    //Deleta produto
     @GetMapping("/admin/product/delete/{id}")
     public String deleteProduct(@PathVariable int id){
         productService.deleteProductById(id);

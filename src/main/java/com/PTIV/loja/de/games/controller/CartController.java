@@ -40,43 +40,41 @@ public class CartController {
 
 
 
-    //Load the Stripe payment payment page
-
-
-    //Add to Cart
+    //Carregue a página de pagamento do Stripe Payment
+    //    //Adicionar ao carrinho
     @PostMapping("/addToCart/{id}")
     public String addToCart(@PathVariable int id,
                             @ModelAttribute("quantityObj") Quantity quantityObj,
                             Model model,
                             @ModelAttribute("value") Integer value)  {
 
-        //we retrieve what user it is
+        //recuperamos qual usuário é
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         CustomerProfile customerProfile;
-        //if the user has no customer profile
+        //se o usuário não tiver perfil de cliente
         if(user.getCustomerProfile() == null){
             //redirect to profile
             return "profile";
         }else {
-            //set this customer to his customerprofile
+            //definir este cliente para seu perfil de cliente
             customerProfile = user.getCustomerProfile();
         }
 
-        //get the value of quantity from the quantityObj attribute value
+        //obtenha o valor da quantidade do valor do atributo amountObj
         model.addAttribute("value", value);
 
-        //add the product to the database
+        //adicione o produto ao banco de dados
         shoppingCartService.addProduct(value,id,customerProfile);
 
-        //when added redirect to shop
+        //quando adicionado redireciona para loja
         return "redirect:/shop";
     }
 
-    //View the Cart
+    //Ver o carrinho
     @GetMapping("/cart")
     public String viewCart(Model model){
 
-        //Get the Customer Profile info
+        //Obtenha as informações do perfil do cliente
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         CustomerProfile customerProfile;
         if(user.getCustomerProfile() == null){
@@ -85,12 +83,12 @@ public class CartController {
             customerProfile = user.getCustomerProfile();
         }
 
-        //get the cart items for the Customer Profile
+        //obtenha os itens do carrinho para o perfil do cliente
         List<CartItem> cartItemList = shoppingCartService.listCartItems(customerProfile);
         Integer totalQuantity = shoppingCartService.cartCount(cartItemList);
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-        //Add to the view
+        //Adicionar à visualização
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("cartCount", totalQuantity);
 
@@ -106,17 +104,17 @@ public class CartController {
         return "cart";
     }
 
-    //Remove the cart item
+    //Remove item do carrinho
     @GetMapping("/cart/removeItem/{index}")
     public String removeCartItem(@PathVariable int index){
         shoppingCartService.deleteItems(new CartItem(index));
         return "redirect:/cart";
     }
 
-    //Checkout page
+    //Pagina checkout
     @GetMapping("/checkout")
     public String checkout(Model model){
-        //-------get the Customer Profile details -------------------------
+        //-------obtenha os detalhes do perfil do cliente -------------------------
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         CustomerProfile customerProfile;
         if(user.getCustomerProfile() == null){
@@ -125,17 +123,17 @@ public class CartController {
             customerProfile = user.getCustomerProfile();
         }
 
-        //-------Display to the view User details -------------------------
+        //-------Exibir na visualização Detalhes do usuário -------------------------
         model.addAttribute("lastName", user.getLastName());
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("email", user.getEmail());
 
-        //cart item details.
+        //Detalhes dos itens do carrinho.
         List<CartItem> cartItemList = shoppingCartService.listCartItems(customerProfile);
         Integer totalQuantity = shoppingCartService.cartCount(cartItemList);
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-        //---------Display to the view ----------------------------------
+        //---------Exibir para a visualização ----------------------------------
         model.addAttribute("customerProfile", customerProfile);
         model.addAttribute("cartCount", totalQuantity);
         model.addAttribute("cartItemList", cartItemList);

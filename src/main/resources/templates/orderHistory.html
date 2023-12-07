@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/templatemo.css">
 
 
-    <!-- Load fonts style after rendering the layout styles -->
+    <!-- Carregar o estilo das fontes após renderizar os estilos de layout -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -49,9 +49,6 @@
                         <a class="nav-link" th:href="@{/shop}" href="#" style="color: white;">Produtos</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/orderHistory}" href="#" style="color: white;">Meus Pedidos</a>
-                    </li>
-                    <li class="nav-item active">
                         <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#" style="color: white;">Login</a>
                     </li>
                     <li class="nav-item active">
@@ -60,12 +57,12 @@
                 </ul>
             </div>
             <div class="navbar align-self-center d-flex">
-                <!-- this is the cart icon  -->
+                <!-- ícone do carrinho  -->
                 <a class="nav-icon position-relative text-decoration-none" sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/cart}">
                     <i class="fa fa-fw fa-cart-arrow-down text-white mr-1"></i>
                     <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark" sec:authorize="hasAuthority('CUSTOMER')" th:text="${cartCount}">0</span>
                 </a>
-                <!-- this is the profile icon -->
+                <!-- ícone do perfil -->
                 <a class="nav-icon position-relative text-decoration-none" sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/profile}" href="#">
                     <i class="fa fa-fw fa-user text-white mr-3"></i>
                     <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
@@ -76,53 +73,52 @@
 </nav>
 <!-- Close Header -->
 
-
 <!-- Start Content Page -->
 <div class="container-fluid bg-light py-5">
     <div class="col-md-6 m-auto text-center">
         <h1 class="h1">Meus pedidos</h1>
-
     </div>
 </div>
 
 <!-- Start Contact -->
-<section >
+<section>
     <div class="container pb-5">
         <div class="row">
-            <div class="col-lg-5 mt-5">
-                <div class="card mb-3 shadow bg-white rounded">
+            <div class="col-lg-12 mt-5">
+                <div class="card shadow bg-white rounded">
                     <div class="card-body">
-                        <ul>
-
-                            <li th:each="orderHistory : ${orderHistoryList}">
-
-                                <label>Produto: </label><p th:text="${orderHistory.product.name}"></p>
-                                <label>Preço: </label><p th:text="${orderHistory.product.price}"></p>
-                                <label>Descrição: </label><p th:text="${orderHistory.product.description}"></p>
-                                <label>Quantidade: </label><p th:text="${orderHistory.quantity}"></p>
-                                <img class="img-fluid w-50"
-                                     th:src="@{${'/Images/' + orderHistory.getProduct().imageName}}">
-                            </li>
-
-                        </ul>
-                        </div>
+                        <h2 class="h2 text-center">Histórico de Pedidos</h2>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Detalhes</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="orderHistory : ${orderHistoryList}">
+                                <td th:text="${orderHistory.product.id}"></td>
+                                <td th:text="${orderHistory.product.name}"></td>
+                                <td th:text="${orderHistory.product.price}"></td>
+                                <td th:text="${orderHistory.product.description}"></td>
+                                <td th:text="${orderHistory.quantity}"></td>
+                                <td>
+                                    <!-- Adicione um botão para os detalhes do pedido -->
+                                    <button type="button" class="btn btn-primary" onclick="redirectToDetails(${orderHistory.product.id})">Detalhes</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </div>
-
-        <div class="col-lg-7 mt-5">
-            <div class="card shadow bg-white rounded">
-                <div class="card-body">
-                    <h1 class="h2 text-center"></h1>
-
                 </div>
             </div>
         </div>
     </div>
-    </div>
 </section>
-
-
 
 <!-- Start Footer -->
 <footer class="bg-dark" id="tempaltemo_footer">
@@ -210,6 +206,13 @@
 
 <!-- Start Script -->
 <script src="/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function redirectToDetails(productId) {
+        // Redirecione para a página de detalhes do produto com base no ID do produto
+        window.location.href = '/product-details/' + productId;
+    }
+</script>
 <!-- End Script -->
 </body>
 

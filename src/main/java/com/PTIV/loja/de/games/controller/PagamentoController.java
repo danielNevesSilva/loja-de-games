@@ -36,11 +36,11 @@ public class PagamentoController {
 
     @GetMapping("/payment")
     public String home(Model model){
-        //get the user
+        //get do usuario
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
-        //get the customer Profile
+        //get o perfil do cliente
         CustomerProfile customerProfile = user.getCustomerProfile();
-        //get the cartItems of the customer Profile
+        //get os cartItems do perfil do cliente
         List<CartItem> cartItemList = shoppingCartService.listCartItems(customerProfile);
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
 

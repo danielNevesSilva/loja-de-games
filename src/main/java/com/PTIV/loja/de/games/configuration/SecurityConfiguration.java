@@ -62,7 +62,7 @@ public class SecurityConfiguration{
 
         return http.build();
     }
-    //configuration for password encoder
+    //configuração para codificador de senha
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();

@@ -1,98 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<body>
-<!-- Display a payment form -->
-
-<form th:action="@{/process-payment}" method="post" onsubmit="return submitForm()">
-  <header>
-    <h1>Pagamento</h1>
-  </header>
-  <p>Total: R$ <span th:text="${param.total}"></span></p>
-  <section>
-    <label>N° Pedido: </label>
-    <input type="text" id="paymentId" name="paymentId" th:value="${param.id}" required >
-    <label for="payment-method">Forma de Pagamento:</label>
-    <select id="payment-method" name="payment-method" onchange="togglePaymentFields()" required>
-      <option value="selecione">selecione</option>
-      <option value="credit-card">Cartão</option>
-      <option value="debit-card">Boleto</option>
-      <!-- Adicione outras opções conforme necessário -->
-    </select>
-  </section>
-
-  <!-- Campos para cartão de crédito -->
-  <div id="credit-card-fields" style="display: none;">
-    <label for="credit-card-number">Número do Cartão:</label>
-    <input type="text" id="credit-card-number" name="credit-card-number" placeholder="**** **** **** ****" required>
-    <br>
-
-    <label for="cardholder-name">Nome do Titular do Cartão:</label>
-    <input type="text" id="cardholder-name" name="cardholder-name" placeholder="Nome Completo" required>
-    <br>
-
-    <label for="expiry-date">Data de Validade:</label>
-    <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/AA" required>
-    <br>
-
-    <label for="credit-card-cvv">CVV:</label>
-    <input type="text" id="credit-card-cvv" name="credit-card-cvv" placeholder="***" required>
-  </div>
-
-
-  <!-- Campos para boleto -->
-  <div id="boleto-fields" style="display: none;">
-    <label for="boleto-number">Número do Boleto:</label>
-    <input type="text" id="boleto-number" name="boleto-number" value="${generateRandomBoletoNumber()}" readonly>
-  </div>
-  <button type="submit">Finalizar Pagamento</button>
-</form>
-
-<!-- Adicione esta parte no final da sua página para o script -->
-
-<script>
-  function togglePaymentFields() {
-      var paymentMethod = document.getElementById("payment-method").value;
-      var creditCardFields = document.getElementById("credit-card-fields");
-      var boletoFields = document.getElementById("boleto-fields");
-
-      if (paymentMethod === "credit-card") {
-          creditCardFields.style.display = "block";
-          boletoFields.style.display = "none";
-      } else if (paymentMethod === "debit-card") {
-          creditCardFields.style.display = "none";
-          boletoFields.style.display = "block";
-      } else {
-          creditCardFields.style.display = "none";
-          boletoFields.style.display = "none";
-      }
-  }
-    }
-  </script>
-<script>
-    function generateRandomBoletoNumber() {
-        // Gere um número aleatório para representar um boleto
-        return Math.floor(Math.random() * 100000000000000000).toString();
-    }
-
-    function togglePaymentFields() {
-        var paymentMethod = document.getElementById("payment-method").value;
-        var creditCardFields = document.getElementById("credit-card-fields");
-        var boletoFields = document.getElementById("boleto-fields");
-
-        if (paymentMethod === "credit-card") {
-            creditCardFields.style.display = "block";
-            boletoFields.style.display = "none";
-        } else if (paymentMethod === "debit-card") {
-            creditCardFields.style.display = "none";
-            boletoFields.style.display = "block";
-        } else {
-            creditCardFields.style.display = "none";
-            boletoFields.style.display = "none";
-        }
-    }
-</script>
-
-</body>
 
 <head>
   <meta charset="utf-8" />
@@ -107,8 +14,93 @@
   <script th:inline="javascript">
     var stripePublicKey = /*[[${stripePublicKey}]]*/ null;
     var amount = /*[[${amount}]]*/ null;
-
   </script>
   <script src="/js/client.js" defer></script>
 </head>
+
+<body>
+<!-- Exibir um formulário de pagamento -->
+<form id="payment-form" th:action="@{/process-payment}" method="post" onsubmit="return confirmPayment()">
+  <header>
+    <h1>Pagamento</h1>
+  </header>
+  <p>Total: R$ <span th:text="${param.total}"></span></p>
+  <section>
+    <label>N° Pedido:</label>
+    <input type="text" id="paymentId" name="paymentId" th:value="${param.id}" required>
+    <label for="payment-method">Forma de Pagamento:</label>
+    <select id="payment-method" name="payment-method" onchange="togglePaymentFields()" required>
+      <option value="selecione">Selecione</option>
+      <option value="credit-card">Cartão</option>
+      <option value="debit-card">Boleto</option>
+      <!-- Adicione outras opções conforme necessário -->
+    </select>
+  </section>
+
+  <!-- Campos para cartão de crédito -->
+  <div id="credit-card-fields" style="display: none;">
+    <label for="credit-card-number">Número do Cartão:</label>
+    <input type="text" id="credit-card-number" name="credit-card-number" placeholder="**** **** **** ****"
+           required>
+    <br>
+
+    <label for="cardholder-name">Nome do Titular do Cartão:</label>
+    <input type="text" id="cardholder-name" name="cardholder-name" placeholder="Nome Completo" required>
+    <br>
+
+    <label for="expiry-date">Data de Validade:</label>
+    <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/AA" required>
+    <br>
+
+    <label for="credit-card-cvv">CVV:</label>
+    <input type="text" id="credit-card-cvv" name="credit-card-cvv" placeholder="***" required>
+  </div>
+
+  <!-- Campos para boleto -->
+  <div id="boleto-fields" style="display: none;">
+    <label for="boleto-number">Número do Boleto:</label>
+    <input type="text" id="boleto-number" name="boleto-number" value="${generateRandomBoletoNumber()}"
+           readonly>
+  </div>
+
+  <button type="submit">Finalizar Pagamento</button>
+</form>
+
+<!-- Adicione esta parte no final da sua página para o script -->
+<script>
+  function togglePaymentFields() {
+    var paymentMethod = document.getElementById("payment-method").value;
+    var creditCardFields = document.getElementById("credit-card-fields");
+    var boletoFields = document.getElementById("boleto-fields");
+
+    if (paymentMethod === "credit-card") {
+      creditCardFields.style.display = "block";
+      boletoFields.style.display = "none";
+    } else if (paymentMethod === "debit-card") {
+      creditCardFields.style.display = "none";
+      boletoFields.style.display = "block";
+    } else {
+      creditCardFields.style.display = "none";
+      boletoFields.style.display = "none";
+    }
+  }
+
+  function generateRandomBoletoNumber() {
+    // Gere um número aleatório para representar um boleto
+    return Math.floor(Math.random() * 100000000000000000).toString();
+  }
+
+  function confirmPayment() {
+    var confirmed = window.confirm("Deseja confirmar o pagamento?");
+
+    if (confirmed) {
+      // Se o usuário confirmar, envie o formulário
+      document.getElementById("payment-form").submit();
+    } else {
+      // Caso contrário, não faça nada
+    }
+  }
+</script>
+</body>
+
 </html>

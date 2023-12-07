@@ -35,33 +35,32 @@ public class StripePaymentController {
     private OrderHistoryRepository orderHistoryRepository;
 
 
-    //make the paymentIntent
+    //faça o pagamentoIntent
     @PostMapping("/create-payment-intent")
     public CreatePaymentResponse createPaymentIntent() throws StripeException {
 
-        //get the user details
+        //obter os detalhes do usuário
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
-        //get the customerProfile
+        //obter o perfil do cliente
         CustomerProfile customerProfile = user.getCustomerProfile();
-        //get the cartItems of that customerProfile
+        //obtenha os cartItems desse customerProfile
         List<CartItem> cartItemList = shoppingCartService.listCartItems(customerProfile);
-        //get the total cost
+        //obtenha o custo total
         long totalCost = (long)shoppingCartService.totalCost(cartItemList);
 
-        //set the PaymentIntent parameters with builder object,
-        // the currency euro and the total amount tendered
+        //definir os parâmetros PaymentIntent com o objeto construtor,
+        // a moeda euro e o valor total oferecido
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
                 .setCurrency("BR")
                 .setAmount(totalCost*100L)
                 .build();
-        // Create a PaymentIntent with the order amount and currency
+        // Crie um PaymentIntent com o valor do pedido e a moeda
         PaymentIntent intent = PaymentIntent.create(createParams);
-        //delete cartItems
-        //create the
+        //excluir itens do carrinho
         return new CreatePaymentResponse(intent.getClientSecret());
     }
 
-    //delete the items in the cart
+    //exclua os itens do carrinho
 
 
     }

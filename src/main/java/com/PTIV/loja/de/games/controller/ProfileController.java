@@ -35,13 +35,13 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
-    // setting a variable for the directory of the product images
+    // configurando uma variável para o diretório das imagens dos produtos.
     public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/prescriptionImages";
 
 
     @GetMapping("/profile")
     public String viewProfile(Model model){
-        //output the existing details
+        //Exibir os detalhes existentes.
 
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         model.addAttribute("lastName", user.getLastName());
@@ -60,17 +60,17 @@ public class ProfileController {
 
     @GetMapping("/profile/add")
     public String getAddCustomerProfile(Model model){
-        //get the current user
+        //Obter o usuário atual.
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         //output the existing details
         model.addAttribute("lastName", customUserDetailsService.returnLastName());
         model.addAttribute("firstName", customUserDetailsService.returnFirstName());
         model.addAttribute("email", customUserDetailsService.returnUsername());
 
-        //the data transfer object will hold the attrbutes of the CustomerProfile
+        //O objeto de transferência de dados conterá os atributos do Perfil do Cliente.
         model.addAttribute("customerProfileDTO", new CustomerProfileDTO());
 
-        // if user already has a CustomerProfile, display the cart number
+        // Se o usuário já possui um Perfil de Cliente, exiba o número do carrinho.
         if(user.getCustomerProfile() != null){
             CustomerProfile customerProfile = customerProfileService.getCustomerProfile(
                     user.getCustomerProfile().getId()).get();
@@ -78,27 +78,27 @@ public class ProfileController {
                     shoppingCartService.listCartItems(customerProfile));
             model.addAttribute("cartCount", totalQuantity);
         }
-        //display the profile add page
+        //Abrir a página de criação de perfil
         return "profileAdd";
     }
 
     @PostMapping("/profile/add")
     public String postAddCustomerProfile(@ModelAttribute("customerProfileDTO") CustomerProfileDTO customerProfileDTO) throws IOException {
 
-        // get the user
+        // Identificar o usuário
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         CustomerProfile customerProfile;
-        //if customerProfile exists then assign this user to this customerProfile
+        //Se o perfil de cliente existir, então atribua este usuário a este perfil de cliente.
         if(user.getCustomerProfile() != null){
             Integer customerId = user.getCustomerProfile().getId();
             customerProfile = customerProfileService.getCustomerProfile(customerId).get();
         }else{
-            //initalise the customerProfile
+            //inicialize o customerProfile
             customerProfile = new CustomerProfile();
-            //set and id
+            //definir e id
             customerProfile.setId(customerProfileDTO.getId());
         }
-        //set all the attributes
+        //definir todos os atributos
         customerProfile.setEmail(user.getEmail());
         customerProfile.setCep(customerProfileDTO.getCep());
         customerProfile.setRua(customerProfileDTO.getRua());
@@ -108,30 +108,31 @@ public class ProfileController {
         customerProfile.setUf(customerProfileDTO.getUf());
         customerProfile.setLogradouro(customerProfileDTO.getLogradouro());
 
-        //setting a variable for the name
+        //definindo uma variável para o nome
 
-        //if the multipartFile object is not empty in passing from the front-end
+        //se o objeto multipartFile não estiver vazio na passagem do front-end
 
-        //this writes to the db
+        //isso escreve no banco de dados
+
         customerProfileService.addCustomerProfile(customerProfile);
-        //this sets the foreign key on the Users table linking the new entry
+        //isso define a chave estrangeira na tabela Usuários vinculando a nova entrada
         user.setCustomerProfile(customerProfile);
-        //set the CustomerProfile as the this user
+        //defina o CustomerProfile como este usuário
         customerProfile.setUser(user);
-        //save the suer
+        //salvar o usuário
         userService.saveUser(user);
-        //redirect back to the profile
+        //redirecionar de volta para o perfil
         return "redirect:/profile";
     }
 
     @GetMapping("/profile/update")
     public String getUpdateCustomerProfile(Model model){
-        //get the user
+        //pegar o usuário
         User user = userService.getUserByUsername(customUserDetailsService.returnUsername());
         model.addAttribute("lastName", user.getLastName());
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("email", user.getEmail());
-        //get the user's customer profile
+        //obter o perfil de cliente do usuário
         CustomerProfile customerProfile = customerProfileService.getCustomerProfile(user.getCustomerProfile().getId()).get();
 
         CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO();
